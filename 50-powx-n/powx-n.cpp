@@ -9,7 +9,7 @@ public:
         }
 
         while(m) {
-            if(m % 2) {
+            if(m % 2==1) {
                 ans = ans * x;
                 m = m - 1;
             }
