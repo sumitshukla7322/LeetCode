@@ -1,20 +1,18 @@
 class Solution {
 public:
-vector<int>dp;
-int f(vector<int>nums,int i){
-    if(i==nums.size()-1) return nums[i];
-     if(i==nums.size()-2) return max(nums[i],nums[i+1]);
-    return max(nums[i]+f(nums,i+2),0+f(nums,i+1));
-}
-int ftd(vector<int>nums,int i){
-    if(i==nums.size()-1) return nums[i];
-     if(i==nums.size()-2) return max(nums[i],nums[i+1]);
-     if(dp[i]!=-1) return dp[i];
-    return dp[i]= max(nums[i]+ftd(nums,i+2),0+ftd(nums,i+1));
-}
+    int solve(vector<int>& nums, int i,vector<int>&dp) {
+        if (i >= nums.size()) return 0;
+        
+       if(dp[i]!=-1) return dp[i];
+        int steal = nums[i] + solve(nums, i + 2,dp);
+        int skip = solve(nums, i + 1,dp);
+
+        return dp[i]= max(steal, skip);
+    }
 
     int rob(vector<int>& nums) {
-    dp.resize(105,-1);
-        return ftd(nums,0);
+        int n = nums.size();
+        vector<int>dp(n+1,-1);
+        return solve(nums, 0,dp);
     }
 };
