@@ -1,15 +1,14 @@
 class Solution {
 public:
 
-    int solve(vector<int>& nums, int i, vector<int>& dp) {
+    int solve(vector<int>& nums, int i,vector<int>&dp) {
 
         int n = nums.size();
+        if(dp[i]!=-1) return dp[i];
 
         if (i == n - 1) {
             return 0;
         }
-
-        if (dp[i] != -1) return dp[i];
 
         int ans = INT_MAX;
 
@@ -17,7 +16,7 @@ public:
 
             if (i + j < n) {
 
-                int temp = solve(nums, i + j, dp);
+                int temp = solve(nums, i + j,dp);
 
                 if (temp != INT_MAX) {
                     ans = min(ans, 1 + temp);
@@ -25,13 +24,11 @@ public:
             }
         }
 
-        return dp[i] = ans;
+        return dp[i]= ans;
     }
 
     int jump(vector<int>& nums) {
-
-        vector<int> dp(nums.size(), -1);
-
-        return solve(nums, 0, dp);
+        vector<int>dp(nums.size()+1,-1);
+        return solve(nums, 0,dp);
     }
 };
